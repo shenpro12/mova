@@ -1,0 +1,12 @@
+<ion-content [fullscreen]="true" id="home-content">
+    <main-slide [AnimeList]="animeList"></main-slide>
+    <div class="px-3">
+        <anime-tag-slide [AnimeList]="animeList" Title="Mới cập nhật" Query="all"
+            (openList)="setMenuProps($event)"></anime-tag-slide>
+        <anime-tag-slide [AnimeList]="animeList" Title="Sắp chiếu" Query="upComming"
+            (openList)="setMenuProps($event)"></anime-tag-slide>
+        <anime-tag-slide [AnimeList]="animeList" Title="Đề cử" Query="day"
+            (openList)="setMenuProps($event)"></anime-tag-slide>
+    </div>
+</ion-content>
+<anime-tag-list #animeTagList></anime-tag-list>

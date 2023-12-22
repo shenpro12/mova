@@ -1,0 +1,20 @@
+<div class="mb-7 relative">
+    <div class="absolute z-10 w-full flex justify-end items-center h-32 px-3 text-xl text-white"><fa-icon
+            [icon]="icon.faSearch" (click)="setOpen(true)" class="mr-5"></fa-icon><fa-icon
+            [icon]="icon.faBell"></fa-icon></div>
+    <swiper-container #swiper autoplay-delay="5000">
+        <swiper-slide *ngFor="let item of data">
+            <div class="card overflow-hidden relative rounded-none" style="height: 350px;">
+                <img class="card-img-top w-full h-full object-cover" style="filter: brightness(0.7);"
+                    [src]="item.background_url" alt="Card image cap">
+                <div class="absolute bottom-0 p-3 text-white">
+                    <h1 class="text-xl font-semibold">{{item.name.vn||item.name.jp||item.name.en}}</h1>
+                    <p class="text-sm mt-2"><span *ngFor="let category of item.category">{{category}}, </span></p>
+                    <button class="bg-red-500 rounded-full py-1 px-3 mt-2 flex items-center"><fa-icon
+                            [icon]="icon.faPlayCircle" class="mr-2"></fa-icon> Xem phim</button>
+                </div>
+            </div>
+        </swiper-slide>
+    </swiper-container>
+</div>
+<search #search></search>

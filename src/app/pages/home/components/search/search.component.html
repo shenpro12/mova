@@ -1,0 +1,30 @@
+<ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Tìm kiếm</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button (click)="setOpen(false)"><fa-icon [icon]="icon.faClose"
+                            class="text-xl"></fa-icon></ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+            <ion-searchbar placeholder="Nhập từ khóa..." show-clear-button="always" [debounce]="500"
+                (ionInput)="handleInput($event)" class="mb-3"></ion-searchbar>
+            <ion-list *ngIf="data?.length" class="px-0 py-2">
+                <ion-list-header>
+                    <ion-label>Kết quả</ion-label>
+                </ion-list-header>
+                <ion-item *ngFor="let item of data">
+                    <div class="flex items-center py-2">
+                        <div class="w-20 h-24 rounded-sm overflow-hidden mr-4 shadow-md"><img
+                                class="w-full h-full object-cover" [src]="item.thumb_url" /></div>
+                        <h1 class="flex-1">{{item.name.vn||item.name.jp||item.name.en}}</h1>
+                    </div>
+                </ion-item>
+            </ion-list>
+            <p *ngIf="keyword && !data.length" class="text-center">Không tìm thấy!</p>
+        </ion-content>
+    </ng-template>
+</ion-modal>

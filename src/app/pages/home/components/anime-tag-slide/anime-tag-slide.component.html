@@ -1,0 +1,31 @@
+<div class="mt-2 mb-3">
+    <header class="flex justify-between items-center mb-3 font-bold">
+        <h1 class="text-xl font-mono">{{Title}}</h1>
+        <ion-menu-toggle>
+            <p class="text-red-500 text-sm mr-2" (click)="openAllListMenu()">Tất cả</p>
+        </ion-menu-toggle>
+    </header>
+
+    <swiper-container #swiper>
+        <swiper-slide *ngFor="let item of data">
+            <div class="card overflow-hidden relative" style="height: 200px;" (click)="openDetailPage(item)">
+                <img class="card-img-top w-full h-full object-cover" [src]="item.thumb_url" alt="Card image cap">
+                <div class="absolute top-2 left-2 flex bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
+                    <h1>
+                        {{initStar(item.star).ratePoint === 0
+                        ? "??"
+                        : initStar(item.star).ratePoint}}
+                    </h1>
+                </div>
+                <div *ngIf="Query=='upComming'" class="flex justify-center">
+                    <h1
+                        class="absolute bottom-0 text-center w-full py-1 bg-black/70 text-white font-medium font-mono text-xl">
+                        {{item.release_year}}
+                    </h1>
+                </div>
+            </div>
+
+        </swiper-slide>
+    </swiper-container>
+</div>
+<detail-anime-modal #detailAnimeModal></detail-anime-modal>

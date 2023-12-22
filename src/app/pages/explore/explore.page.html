@@ -1,0 +1,86 @@
+<ion-content [fullscreen]="true">
+    <div class="px-3 py-1">
+        <div class="flex items-center text-red-500">
+            <ion-searchbar show-clear-button="always" class="flex-1" (ionInput)="keywordChange($event)"
+                [debounce]="300"></ion-searchbar>
+            <div class="px-2"><fa-icon [icon]="icon.faSort"></fa-icon><span id="open-modal" expand="block"
+                    class="ml-2">Lọc</span></div>
+        </div>
+        <div *ngIf="data.length; else notFound" class="grid grid-cols-2 gap-3">
+            <div *ngFor="let item of data" class="card overflow-hidden relative" style="height: 250px;"
+                (click)="openDetailPage(item)">
+                <img class="card-img-top w-full h-full object-cover" [src]="item.thumb_url" alt="Card image cap">
+                <div class="absolute top-2 left-2 flex bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
+                    <h1>
+                        {{initStar(item.star).ratePoint === 0
+                        ? "??"
+                        : initStar(item.star).ratePoint}}
+                    </h1>
+                </div>
+                <div *ngIf="!item.total_ep" class="flex justify-center">
+                    <h1
+                        class="absolute bottom-0 text-center w-full py-1 bg-black/70 text-white font-medium font-mono text-xl">
+                        {{item.release_year}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <ng-template #notFound>
+            <h1 class="text-center mt-5 italic opacity-75">Không tìm thấy!</h1>
+        </ng-template>
+    </div>
+    <ion-modal trigger="open-modal" [initialBreakpoint]="0.75" [breakpoints]="[0, 0.75]" #filterModal>
+        <ng-template>
+            <div class="block">
+                <header class="px-3 py-4 text-xl text-red-500 text-center font-semibold border-b">Sort & filter</header>
+                <div class="px-3">
+                    <div class="mb-3 mt-3">
+                        <h1 class="text-lf font-mono font-semibold">Loại</h1>
+                        <div class="flex flex-wrap mt-2">
+                            <div *ngFor="let item of typeFilter; let number = index" class="form-check p-0 mr-2">
+                                <input type="radio" class="btn-check" name="typeFilter" [id]="item.value"
+                                    autocomplete="off" (change)="typeChange(item.label)" [checked]="type==item.label">
+                                <label class="btn btn-outline-danger rounded-full text-sm font-semibold"
+                                    [for]="item.value">{{item.label}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h1 class="text-lf font-mono font-semibold">Thể loại</h1>
+                        <div class="flex flex-wrap mt-2">
+                            <div *ngFor="let item of categoryFilter; let number = index"
+                                class="form-check p-0 mr-2 mt-2">
+                                <input type="checkbox" class="btn-check" [id]="item.value" autocomplete="off"
+                                    (change)="categoryChange($event, item.label)">
+                                <label class="btn btn-outline-danger rounded-full text-sm font-semibold"
+                                    [for]="item.value">{{item.label}}</label><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <h1 class="text-lf font-mono font-semibold">Năm phát hành</h1>
+                        <div class="flex flex-wrap mt-2">
+                            <div *ngFor="let item of yearFilter; let number = index" class="form-check p-0 mr-2 mt-2">
+                                <input type="radio" class="btn-check" name="yearFilter" [id]="item" autocomplete="off"
+                                    (change)="yearChange(item)" [checked]="year == item">
+                                <label class="btn btn-outline-danger rounded-full text-sm font-semibold"
+                                    [for]="item">{{item}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-5">
+                    <div><button class="bg-red-100 px-5 py-2 text-red-500 font-semibold rounded-full mx-2"
+                            (click)="resetFilter()">Đặt
+                            lại</button></div>
+                    <div><button class="bg-red-500 px-5 py-2 text-white font-semibold rounded-full mx-2"
+                            (click)="apllyFilter(filterModal)">Áp
+                            dụng</button></div>
+                </div>
+            </div>
+
+        </ng-template>
+    </ion-modal>
+
+</ion-content>
+<detail-anime-modal #detailAnimeModal></detail-anime-modal>

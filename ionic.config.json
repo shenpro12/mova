@@ -1,0 +1,7 @@
+{
+  "name": "mova",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
